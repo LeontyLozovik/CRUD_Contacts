@@ -1,0 +1,68 @@
+﻿@model IEnumerable<TestTask.Models.Contact>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Contacts list</h1>
+<p>   
+    <button class="btn btn-primary" 
+            onclick="openModal({ url: '/Contact/Create'})" 
+            data-toggle="ajax-modal" 
+            data-target="Modal">
+            Create New
+    </button> 
+</p>
+<table class="table table-stripet">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MobilePhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JobTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var contact in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => contact.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => contact.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => contact.MobilePhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => contact.JobTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => contact.BirthDate, new { @type = "date"})
+            </td>
+            <td>
+                <button class="btn btn-outline-dark" 
+                            onclick="openModal({ url: '/Contact/Edit', data: '@contact.Id'})" 
+                            data-toggle="ajax-modal" 
+                            data-target="Modal">
+                            Edit
+                </button>             
+                <button class="btn btn-outline-danger">@Html.ActionLink("Delete", "Delete", new { id = contact.Id }, new { @class = "text-decoration-none text-reset"})</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
